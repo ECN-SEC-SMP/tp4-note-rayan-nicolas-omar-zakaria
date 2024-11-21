@@ -1,16 +1,16 @@
 #include <iostream>
 
-#include "point2d.hpp"
+#include "polygon.hpp"
 
 int main()
 {
-    Point2D p(1, 2);
+    std::vector summits = {Point2D(0, 0), Point2D(5, 5)};
 
-    std::cout << "P = " << p << std::endl;
+    Polygon<int> p1(summits);
+    auto p2 = p1;
 
-    p.translate(3, -2);
-    std::cout << "Translated by (3, -2) = " << p << std::endl;
+    std::cout << "P1 = " << p1 << ", P2 = " << p2 << std::endl;
 
-    p.setY(10);
-    std::cout << "Forced y to 10, reading y = " << p.getY() << std::endl;
+    p1.translate(100, 100);
+    std::cout << "After translation: P1 = " << p1 << ", P2 = " << p2 << std::endl;
 }
