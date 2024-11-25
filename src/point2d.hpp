@@ -23,7 +23,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Point2D &p)
     {
-        os << '(' << p._x << ", " << p._y << ')';
+        os << '[' << p._x << ";" << p._y << ']';
         return os;
     }
 

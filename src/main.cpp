@@ -1,16 +1,16 @@
 #include <iostream>
 
-#include "polygon.hpp"
+#include "parcelle.hpp"
+#include "constructible.hpp"
 
 int main()
 {
-    std::vector summits = {Point2D(0, 0), Point2D(5, 5)};
+    std::vector summits = {
+        Point2D(1, 2),
+        Point2D(2, 4),
+        Point2D(4, 1)};
 
-    Polygon<int> p1(summits);
-    auto p2 = p1;
+    Polygon poly(summits);
 
-    std::cout << "P1 = " << p1 << ", P2 = " << p2 << std::endl;
-
-    p1.translate(100, 100);
-    std::cout << "After translation: P1 = " << p1 << ", P2 = " << p2 << std::endl;
+    Parcelle parc(1, std::string("City"), poly);
 }

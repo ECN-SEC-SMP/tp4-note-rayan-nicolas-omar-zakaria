@@ -8,11 +8,11 @@ class Polygon
 {
 public:
     Polygon() {}
-    Polygon(const Polygon<T> &other) : _summits(other._summits), _surface(other._surface) {}
+    Polygon(const Polygon<T> &other) : _summits(other._summits), _area(other._area) {}
 
     Polygon(const std::vector<Point2D<T>> &summits) : _summits(summits)
     {
-        _recalculateSurface();
+        _recalculateArea();
     }
 
     const std::vector<Point2D<T>> &getSummits() { return _summits; };
@@ -20,13 +20,13 @@ public:
     void setSummits(const std::vector<Point2D<T>> &summits)
     {
         _summits = summits;
-        _recalculateSurface();
+        _recalculateArea();
     }
 
     void addSummit(const Point2D<T> &p)
     {
         _summits.push_back(p);
-        _recalculateSurface();
+        _recalculateArea();
     }
 
     void translate(T x, T y)
@@ -37,18 +37,19 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Polygon &p)
     {
-        os << "[ ";
+        for (size_t i = 0; i < p._summits.size(); ++i)
+        {
+            os << p._summits[i];
 
-        for (const auto &point : p._summits)
-            os << point << ' ';
-
-        os << ']';
+            if (i != p._summits.size() - 1)
+                os << ' ';
+        }
 
         return os;
     }
 
 private:
-    void _recalculateSurface()
+    void _recalculateArea()
     {
         double s = 0;
 
@@ -62,11 +63,10 @@ private:
             s += x1 * y2 - x2 * y1;
         }
 
-        _surface = std::abs(s) / 2.0;
+        _area = std::abs(s) / 2.0;
     }
 
 private:
     std::vector<Point2D<T>> _summits;
-    double _surface = 0;
+    double _area = 0;
 };
- 
