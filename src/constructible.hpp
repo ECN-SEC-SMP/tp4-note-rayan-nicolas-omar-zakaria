@@ -22,12 +22,15 @@ public:
         return Parcelle<T>::constructableAreaPercentage_ * Parcelle<T>::getArea() - _constructedArea;
     }
 
+    float getConstructedArea() const { return _constructedArea; }
+
     friend std::ostream &operator<<(std::ostream &os, const ZU &zone)
     {
-        os << Parcelle<T>;
+        os << static_cast<const Parcelle<T> &>(zone);
+
         os << " Constructuble : " << zone.constructableAreaPercentage_ << '%' << std::endl
            << " Surface Construite : " << zone._constructedArea << "m2" << std::endl
-           << " Surface à construire restante : " << zone.surfaceConstructible() "m2" << std::endl;
+           << " Surface à construire restante : " << zone.surfaceConstructible() << "m2" << std::endl;
 
         return os;
     }
@@ -40,7 +43,8 @@ private:
 template <typename T>
 class ZAU : public Parcelle<T>, public Constructible
 {
-    ZAU(const Parcelle<T> &parcelle, float constructedArea) : Parcelle<T>(parcelle)
+public:
+    ZAU(const Parcelle<T> &parcelle) : Parcelle<T>(parcelle)
     {
         Parcelle<T>::setType("ZAU");
     }
@@ -52,9 +56,10 @@ class ZAU : public Parcelle<T>, public Constructible
 
     friend std::ostream &operator<<(std::ostream &os, const ZAU &zone)
     {
-        os << Parcelle<T>;
+        os << static_cast<const Parcelle<T> &>(zone);
+
         os << " Constructuble : " << zone.constructableAreaPercentage_ << '%' << std::endl
-           << " Surface à construire restante : " << zone.surfaceConstructible() "m2" << std::endl;
+           << " Surface à construire restante : " << zone.surfaceConstructible() << "m2" << std::endl;
 
         return os;
     }
@@ -65,14 +70,19 @@ template <typename T>
 class ZN : public Parcelle<T>
 {
 public:
+    ZN(const Parcelle<T> &parcelle) : ZN(parcelle, "") {}
     ZN(const Parcelle<T> &parcelle, const std::string &cultureCultivee) : Parcelle<T>(parcelle), _cultureCultivee(cultureCultivee)
     {
         Parcelle<T>::setType("ZN");
     }
 
+    std::string getCultureCultivee() const { return _cultureCultivee; }
+    void setCultureCultivee(const std::string &n) { _cultureCultivee = n; }
+
     friend std::ostream &operator<<(std::ostream &os, const ZN &zone)
     {
-        os << Parcelle<T>;
+        os << static_cast<const Parcelle<T> &>(zone);
+
         os << " Type culture : " << zone._cultureCultivee << std::endl;
 
         return os;
@@ -87,6 +97,7 @@ template <typename T>
 class ZA : public ZN<T>
 {
 public:
+    ZA(const Parcelle<T> &parcelle) : ZA(parcelle, "") {}
     ZA(const Parcelle<T> &parcelle, const std::string &cultureCultivee) : ZN<T>(parcelle, cultureCultivee)
     {
         Parcelle<T>::setType("ZA");
@@ -109,7 +120,9 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const ZA &zone)
     {
-        os << ZA<T>;
+        os << static_cast<const ZA<T> &>(zone);
+
+        return os;
     }
 
 private:

@@ -35,6 +35,8 @@ public:
             p.translate(x, y);
     }
 
+    double getArea() const { return _area; }
+
     friend std::ostream &operator<<(std::ostream &os, const Polygon &p)
     {
         for (size_t i = 0; i < p._summits.size(); ++i)

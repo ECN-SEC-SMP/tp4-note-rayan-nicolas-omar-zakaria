@@ -9,8 +9,8 @@ public:
     Point2D() : _x(0), _y(0) {}
     Point2D(const Point2D<T> &original) : _x(original._x), _y(original._y) {}
 
-    T getX() { return _x; }
-    T getY() { return _y; }
+    T getX() const { return _x; }
+    T getY() const { return _y; }
 
     void setX(T x) { _x = x; }
     void setY(T y) { _y = y; }

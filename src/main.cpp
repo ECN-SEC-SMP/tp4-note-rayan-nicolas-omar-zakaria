@@ -2,15 +2,11 @@
 
 #include "parcelle.hpp"
 #include "constructible.hpp"
+#include "carte.hpp"
 
 int main()
 {
-    std::vector summits = {
-        Point2D(1, 2),
-        Point2D(2, 4),
-        Point2D(4, 1)};
+    Carte<int> c = Carte<int>::FromFile("parcelles.txt");
 
-    Polygon poly(summits);
-
-    Parcelle parc(1, std::string("City"), poly);
+    c.ToFile("out.txt");
 }
